@@ -114,4 +114,5 @@ key | optional | type | default | description
 -- | -- | -- | -- | --
 `action_type` | False | string | | Type of actions to execute. Possible values _turn_on_, _turn_off_, _service_call_
 `entity` | False | string | | The entitiy_id to be used for the action.
-`parameters` | True | map | | Parameters if the chosen action type is service_call.
+`service` | True | string | | The service to be used for the action if the chosen action type is _service_call_.
+`parameters` | True | map | | Parameters if the chosen action type is _service_call_.
