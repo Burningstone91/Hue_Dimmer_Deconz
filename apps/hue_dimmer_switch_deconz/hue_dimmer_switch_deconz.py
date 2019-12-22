@@ -9,8 +9,6 @@ class HueDimmerSwitch(Hass):
 
     def initialize(self) -> None:
         """Configure"""
-        self.set_namespace("hass")
-
         self.button_map = {
             1000: "short_press_on",
             1002: "short_press_on_release",
