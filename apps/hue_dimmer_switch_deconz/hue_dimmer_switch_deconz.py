@@ -9,7 +9,7 @@ class SwitchBase(Hass):
 
     def initialize(self) -> None:
         """Initialize."""
-        self.set_namespace("hass")
+        #self.set_namespace("hass")
 
         # configure entities
         self.entities = self.args["entities"]
