@@ -9,6 +9,7 @@ class HueDimmerSwitch(Hass):
 
     def initialize(self) -> None:
         """Configure"""
+        self.button_holding = False
         self.button_map = {
             1000: "short_press_on",
             1002: "short_press_on_release",
@@ -67,14 +68,23 @@ class HueDimmerSwitch(Hass):
         button_code = data["event"]
         button_name = self.button_map[button_code]
 
-        if button_name == "long_press_up":
-            self.dim_light("up")
-        elif button_name == "long_press_down":
-            self.dim_light("down")
-        elif button_name in ["long_press_up_release", "long_press_down_release"]:
-            self.stop_dim_light()
-        elif button_name in self.button_config:
-            self.action(self.button_config[button_name])
+        # can't hurt to always reset, for safety regarding a missed event
+        if button_name.endswith('_release'):
+            self.button_holding = False
+
+        if not self.button_holding:
+            if button_name == "long_press_up":
+                self.dim_light("up")
+            elif button_name == "long_press_down":
+                self.dim_light("down")
+            elif button_name in ["long_press_up_release", "long_press_down_release"]:
+                self.stop_dim_light()
+            elif button_name in self.button_config:
+                self.action(self.button_config[button_name])
+
+        if not self.button_holding:
+            if button_name.startswith('long_press_') and not button_name.endswith('_release'):
+                self.button_holding = True
 
     def dim_light(self, direction: str) -> None:
         """In-/decrease brightness of light through service call to deCONZ."""
