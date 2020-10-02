@@ -28,6 +28,7 @@ dimmer_bedroom:
   entities:
     switch: dimmer_switch_bedroom
     light: light.bedroom
+  transitiontime: 3
 ```
 #### Configuration
 key | optional | type | default | description
@@ -35,6 +36,7 @@ key | optional | type | default | description
 `module` | False | string | hue_dimmer_switch | The module name of the app.
 `class` | False | string | HueDimmerSwitch | The name of the Class.
 `entities` | True | map | | Light and switch entities.
+`transitiontime` | True | int | 5 | Transition time in sec.
 
 ##### Entities
 key | optional | type | default | description
@@ -102,6 +104,7 @@ key | optional | type | default | description
 `class` | False | string | HueDimmerSwitch | The name of the Class.
 `entities` | True | map | | Light and switch entities.
 `advanced` | True | map | | Advanced button configuration, each entry needs to be one of the available button presses.
+`transitiontime` | True | int | 5 | Transition time in sec.
 
 ##### Entities
 key | optional | type | default | description
