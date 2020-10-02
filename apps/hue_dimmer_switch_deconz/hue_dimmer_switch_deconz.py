@@ -32,6 +32,10 @@ class HueDimmerSwitch(Hass):
         self.light = entities["light"]
         self.switch = entities["switch"]
 
+        #config transitiontime
+        self.transitiontime = int(self.args["transitiontime"])*10 if "transitiontime" in self.args else 50
+        self.log(f"Setting transitiontime to: {self.transitiontime}")
+
         # get the advanced button config
         self.button_config = self.args.get("advanced", {})
 
@@ -87,7 +91,7 @@ class HueDimmerSwitch(Hass):
             "deconz/configure",
             field=self.deconz_field,
             entity=self.light,
-            data={"bri_inc": bri_inc, "transitiontime": 50}
+            data={"bri_inc": bri_inc, "transitiontime": self.transitiontime}
         )
 
     def stop_dim_light(self) -> None:
